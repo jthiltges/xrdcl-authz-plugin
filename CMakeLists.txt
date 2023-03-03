@@ -21,7 +21,12 @@ endif()
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g")
 
-add_library(XrdClXcachePlugin-${XROOTD_PLUGIN_VERSION} MODULE src/XrdClXcachePlugin.cc)
+add_library(
+  XrdClXcachePlugin-${XROOTD_PLUGIN_VERSION}
+  MODULE
+  src/XrdClXcachePlugin.cc
+  src/XrdClXcache.cc
+)
 target_link_libraries(XrdClXcachePlugin-${XROOTD_PLUGIN_VERSION} ${XROOTD_LIBRARIES})
 set_target_properties(XrdClXcachePlugin-${XROOTD_PLUGIN_VERSION} PROPERTIES LINK_FLAGS "-Wl,--version-script=${PROJECT_SOURCE_DIR}/configs/export-symbols")
 target_include_directories(XrdClXcachePlugin-${XROOTD_PLUGIN_VERSION} PRIVATE ${XROOTD_INCLUDE_DIRS})

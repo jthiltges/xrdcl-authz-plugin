@@ -38,13 +38,13 @@ public:
                     OpenFlags::Flags flags,
                     Access::Mode mode,
                     ResponseHandler* handler,
-                    uint16_t timeout) override;
+                    time_t timeout) override;
 
   //----------------------------------------------------------------------------
   //! Close
   //----------------------------------------------------------------------------
   XRootDStatus Close(ResponseHandler* handler,
-                     uint16_t         timeout) override
+                     time_t           timeout) override
   {
     return pFile->Close(handler, timeout);
   }
@@ -54,7 +54,7 @@ public:
   //----------------------------------------------------------------------------
   XRootDStatus Stat(bool             force,
                     ResponseHandler* handler,
-                    uint16_t         timeout) override
+                    time_t           timeout) override
   {
     return pFile->Stat(force, handler, timeout);
   }
@@ -66,7 +66,7 @@ public:
                     uint32_t         size,
                     void*            buffer,
                     ResponseHandler* handler,
-                    uint16_t         timeout) override
+                    time_t           timeout) override
   {
     return pFile->Read(offset, size, buffer, handler, timeout);
   }
@@ -78,7 +78,7 @@ public:
                     uint32_t         size,
                     void*            buffer,
                     uint32_t        &bytesRead,
-                    uint16_t         timeout) // FIXME: override
+                    time_t           timeout) // FIXME: override
   {
     return pFile->Read(offset, size, buffer, bytesRead, timeout);
   }
@@ -90,7 +90,7 @@ public:
                       uint32_t         size,
                       void            *buffer,
                       ResponseHandler *handler,
-                      uint16_t         timeout) override
+                      time_t           timeout) override
   {
     return pFile->PgRead(offset, size, buffer, handler, timeout);
   }
@@ -102,7 +102,7 @@ public:
                      uint32_t         size,
                      const void*      buffer,
                      ResponseHandler* handler,
-                     uint16_t         timeout) override
+                     time_t           timeout) override
   {
     return pFile->Write(offset, size, buffer, handler, timeout);
   }
@@ -110,7 +110,7 @@ public:
   XRootDStatus Write(uint64_t          offset,
                      Buffer          &&buffer,
                      ResponseHandler  *handler,
-                     uint16_t          timeout) override
+                     time_t            timeout) override
   {
     return pFile->Write(offset, std::move(buffer), handler, timeout);
   }
@@ -120,7 +120,7 @@ public:
                      Optional<uint64_t>  fdoff,
                      int                 fd,
                      ResponseHandler    *handler,
-                     uint16_t            timeout) override
+                     time_t              timeout) override
   {
     return pFile->Write(offset, size, fdoff, fd, handler, timeout);
   }
@@ -133,7 +133,7 @@ public:
                        const void            *buffer,
                        std::vector<uint32_t> &cksums,
                        ResponseHandler       *handler,
-                       uint16_t               timeout) override
+                       time_t                 timeout) override
   {
     return pFile->PgWrite(offset, nbpgs, buffer, cksums, handler, timeout);
   }
@@ -142,7 +142,7 @@ public:
   //! Sync
   //----------------------------------------------------------------------------
   XRootDStatus Sync(ResponseHandler* handler,
-                    uint16_t         timeout) override
+                    time_t           timeout) override
   {
     return pFile->Sync(handler, timeout);
   }
@@ -152,7 +152,7 @@ public:
   //----------------------------------------------------------------------------
   XRootDStatus Truncate(uint64_t         size,
                         ResponseHandler* handler,
-                        uint16_t         timeout) override
+                        time_t           timeout) override
   {
     return pFile->Truncate(size, handler, timeout);
   }
@@ -163,7 +163,7 @@ public:
   XRootDStatus VectorRead(const ChunkList& chunks,
                           void*            buffer,
                           ResponseHandler* handler,
-                          uint16_t         timeout) override
+                          time_t           timeout) override
   {
     return pFile->VectorRead(chunks, buffer, handler, timeout);
   }
@@ -174,7 +174,7 @@ public:
   //----------------------------------------------------------------------------
   XRootDStatus VectorWrite(const ChunkList &chunks,
                            ResponseHandler *handler,
-                           uint16_t         timeout) override
+                           time_t           timeout) override
   {
     return pFile->VectorWrite(chunks, handler, timeout);
   }
@@ -186,7 +186,7 @@ public:
                       const struct iovec *iov,
                       int                 iovcnt,
                       ResponseHandler    *handler,
-                      uint16_t            timeout) override
+                      time_t              timeout) override
   {
     return pFile->WriteV(offset, iov, iovcnt, handler, timeout);
   }
@@ -196,7 +196,7 @@ public:
   //----------------------------------------------------------------------------
   XRootDStatus Fcntl(const Buffer&    arg,
                      ResponseHandler* handler,
-                     uint16_t         timeout) override
+                     time_t           timeout) override
   {
     return pFile->Fcntl(arg, handler, timeout);
   }
@@ -205,7 +205,7 @@ public:
   //! Visa
   //----------------------------------------------------------------------------
   XRootDStatus Visa(ResponseHandler* handler,
-                    uint16_t         timeout) override
+                    time_t           timeout) override
   {
     return pFile->Visa(handler, timeout);
   }
@@ -264,7 +264,7 @@ public:
   XRootDStatus Locate(const std::string &path,
                       OpenFlags::Flags   flags,
                       ResponseHandler   *handler,
-                      uint16_t           timeout) override
+                      time_t             timeout) override
   {
     return pFileSystem->Locate( path, flags, handler, timeout );
   }
@@ -275,7 +275,7 @@ public:
   XRootDStatus DeepLocate(const std::string &path,
                           OpenFlags::Flags   flags,
                           ResponseHandler   *handler,
-                          uint16_t           timeout) override
+                          time_t             timeout) override
   {
     return pFileSystem->DeepLocate( path, flags, handler, timeout );
   }
@@ -286,7 +286,7 @@ public:
   XRootDStatus Mv(const std::string &source,
                   const std::string &dest,
                   ResponseHandler   *handler,
-                  uint16_t           timeout) override
+                  time_t             timeout) override
   {
     return pFileSystem->Mv( source, dest, handler, timeout );
   }
@@ -297,7 +297,7 @@ public:
   XRootDStatus Query(QueryCode::Code  queryCode,
                      const Buffer    &arg,
                      ResponseHandler *handler,
-                     uint16_t         timeout) override
+                     time_t           timeout) override
   {
     return pFileSystem->Query( queryCode, arg, handler, timeout );
   }
@@ -308,7 +308,7 @@ public:
   XRootDStatus Truncate(const std::string &path,
                         uint64_t           size,
                         ResponseHandler   *handler,
-                        uint16_t           timeout) override
+                        time_t             timeout) override
   {
     return pFileSystem->Truncate( path, size, handler, timeout );
   }
@@ -318,7 +318,7 @@ public:
   //------------------------------------------------------------------------
   XRootDStatus Rm(const std::string &path,
                   ResponseHandler   *handler,
-                  uint16_t           timeout) override
+                  time_t             timeout) override
   {
     return pFileSystem->Rm( path, handler, timeout );
   }
@@ -330,7 +330,7 @@ public:
                      MkDirFlags::Flags  flags,
                      Access::Mode       mode,
                      ResponseHandler   *handler,
-                     uint16_t           timeout) override
+                     time_t             timeout) override
   {
     return pFileSystem->MkDir( path, flags, mode, handler, timeout );
   }
@@ -340,7 +340,7 @@ public:
   //------------------------------------------------------------------------
   XRootDStatus RmDir(const std::string &path,
                      ResponseHandler   *handler,
-                     uint16_t           timeout) override
+                     time_t             timeout) override
   {
     return pFileSystem->RmDir( path, handler, timeout );
   }
@@ -351,7 +351,7 @@ public:
   XRootDStatus ChMod(const std::string &path,
                      Access::Mode       mode,
                      ResponseHandler   *handler,
-                     uint16_t           timeout) override
+                     time_t             timeout) override
   {
     return pFileSystem->ChMod( path, mode, handler, timeout );
   }
@@ -360,7 +360,7 @@ public:
   // Ping
   //------------------------------------------------------------------------
   XRootDStatus Ping(ResponseHandler *handler,
-                    uint16_t         timeout) override
+                    time_t           timeout) override
   {
     return pFileSystem->Ping( handler, timeout );
   }
@@ -370,7 +370,7 @@ public:
   //------------------------------------------------------------------------
   XRootDStatus Stat(const std::string &path,
                     ResponseHandler   *handler,
-                    uint16_t           timeout) override
+                    time_t             timeout) override
   {
     return pFileSystem->Stat( path, handler, timeout );
   }
@@ -380,7 +380,7 @@ public:
   //------------------------------------------------------------------------
   XRootDStatus StatVFS(const std::string &path,
                        ResponseHandler   *handler,
-                       uint16_t           timeout) override
+                       time_t             timeout) override
   {
     return pFileSystem->StatVFS( path, handler, timeout );
   }
@@ -389,7 +389,7 @@ public:
   // Protocol
   //------------------------------------------------------------------------
   XRootDStatus Protocol(ResponseHandler *handler,
-                        uint16_t         timeout) override
+                        time_t           timeout) override
   {
     return pFileSystem->Protocol( handler, timeout );
   }
@@ -400,7 +400,7 @@ public:
   XRootDStatus DirList(const std::string   &path,
                        DirListFlags::Flags  flags,
                        ResponseHandler     *handler,
-                       uint16_t             timeout) override
+                       time_t               timeout) override
   {
     return pFileSystem->DirList( path, flags, handler, timeout );
   }
@@ -410,7 +410,7 @@ public:
   //------------------------------------------------------------------------
   XRootDStatus SendInfo(const std::string &info,
                         ResponseHandler   *handler,
-                        uint16_t           timeout) override
+                        time_t             timeout) override
   {
     return pFileSystem->SendInfo( info, handler, timeout );
   }
@@ -422,7 +422,7 @@ public:
                        PrepareFlags::Flags             flags,
                        uint8_t                         priority,
                        ResponseHandler                *handler,
-                       uint16_t                        timeout) override
+                       time_t                          timeout) override
   {
     return pFileSystem->Prepare( fileList, flags, priority, handler,
                                   timeout );
@@ -434,7 +434,7 @@ public:
   XRootDStatus SetXAttr(const std::string           &path,
                         const std::vector<xattr_t>  &attrs,
                         ResponseHandler             *handler,
-                        uint16_t                     timeout) override
+                        time_t                       timeout) override
   {
     return pFileSystem->SetXAttr(path, attrs, handler, timeout);
   }
@@ -445,7 +445,7 @@ public:
   XRootDStatus GetXAttr(const std::string               &path,
                         const std::vector<std::string>  &attrs,
                         ResponseHandler                 *handler,
-                        uint16_t                         timeout ) override
+                        time_t                           timeout ) override
   {
     return pFileSystem->GetXAttr(path, attrs, handler, timeout);
   }
@@ -456,7 +456,7 @@ public:
   XRootDStatus DelXAttr(const std::string               &path,
                         const std::vector<std::string>  &attrs,
                         ResponseHandler                 *handler,
-                        uint16_t                         timeout ) override
+                        time_t                           timeout ) override
   {
     return pFileSystem->DelXAttr(path, attrs, handler, timeout);
   }
@@ -466,7 +466,7 @@ public:
   //------------------------------------------------------------------------
   XRootDStatus ListXAttr(const std::string         &path,
                          ResponseHandler           *handler,
-                         uint16_t                   timeout ) override
+                         time_t                     timeout ) override
   {
     return pFileSystem->ListXAttr(path, handler, timeout);
   }

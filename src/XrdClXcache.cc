@@ -38,7 +38,7 @@ XcacheFile::Open(const std::string& url,
                  OpenFlags::Flags flags,
                  Access::Mode mode,
                  ResponseHandler* handler,
-                 uint16_t timeout)
+                 time_t timeout)
 {
   XRootDStatus st;
 
